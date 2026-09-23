@@ -10,6 +10,8 @@ const posts = (await getPosts()).slice(0, 3);
 
 <Base>
   <section class="hero">
+    <img class="headshot" src="/headshot.jpg" alt="Imtiaz Chowdhury" width="240" height="240" />
+    <div>
     <p class="eyebrow">Cloud architect · {SITE.location}</p>
     <h1>I design cloud infrastructure that holds up at hyperscale, and the platforms that ship it safely.</h1>
     <p class="lede">
@@ -17,6 +19,7 @@ const posts = (await getPosts()).slice(0, 3);
       Cloud Infrastructure, working on a load balancer that runs in 40+ regions and on LLM agents that triage and
       remediate production incidents. Before that I built Workday's private cloud from zero.
     </p>
+    </div>
   </section>
 
   <Metrics
@@ -80,5 +83,23 @@ const posts = (await getPosts()).slice(0, 3);
 </Base>
 
 <style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    align-items: center;
+  }
   .hero h1 { max-width: 20ch; font-size: clamp(2rem, 5vw, 3.25rem); }
+  .headshot {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--rule);
+  }
+  @media (min-width: 52rem) {
+    .hero { grid-template-columns: 1fr 15rem; }
+    .hero > div { grid-row: 1; }
+    .headshot { width: 15rem; height: 15rem; grid-column: 2; }
+  }
 </style>
