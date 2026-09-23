@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Metrics from '../components/Metrics.astro';
+import { SITE } from '../site';
+import { getPosts, getWork, formatDate } from '../lib';
+
+const work = await getWork();
+const posts = (await getPosts()).slice(0, 3);
+---
+
+<Base>
+  <section class="hero">
+    <p class="eyebrow">Cloud architect · {SITE.location}</p>
+    <h1>I design cloud infrastructure that holds up at hyperscale, and the platforms that ship it safely.</h1>
+    <p class="lede">
+      Twenty-five years across infrastructure, delivery platforms, and SaaS. Today I'm a principal architect at Oracle
+      Cloud Infrastructure, working on a load balancer that runs in 40+ regions and on LLM agents that triage and
+      remediate production incidents. Before that I built Workday's private cloud from zero.
+    </p>
+  </section>
+
+  <Metrics
+    items={[
+      { value: '40+', label: 'regions, OCI load balancing' },
+      { value: '6th', label: 'largest private cloud in the world, Workday' },
+      { value: '50%', label: 'faster deploys with GitOps multi-cloud' },
+      { value: 'Keynote', label: 'OpenStack Summit' },
+    ]}
+  />
+
+  <section class="prose">
+    <h2>What I work on</h2>
+    <ul>
+      <li><strong>Cloud and distributed systems:</strong> control-plane and data-plane design, load balancing and traffic management, and private cloud and multi-cloud at scale.</li>
+      <li><strong>Platform engineering and delivery:</strong> GitOps with Argo CD, custom Kubernetes controllers, and progressive delivery gated on SLOs.</li>
+      <li><strong>AI and agentic systems:</strong> multi-agent orchestration with LangGraph, agent evaluation, and generative AI running where production is at stake.</li>
+      <li><strong>Technical strategy:</strong> multi-year architecture roadmaps, alignment across orgs, and design review.</li>
+    </ul>
+  </section>
+
+  <div class="section-head">
+    <h2>Selected work</h2>
+    <a href="/work/">All case studies →</a>
+  </div>
+  <ul class="list">
+    {
+      work.slice(0, 3).map((w) => (
+        <li>
+          <a href={`/work/${w.id}/`}>
+            <div class="meta">{w.data.org} · {w.data.period}</div>
+            <h3>{w.data.title}</h3>
+            <p>{w.data.summary}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    posts.length > 0 && (
+      <>
+        <div class="section-head">
+          <h2>Writing</h2>
+          <a href="/writing/">All writing →</a>
+        </div>
+        <ul class="list">
+          {posts.map((p) => (
+            <li>
+              <a href={`/writing/${p.id}/`}>
+                <div class="meta">{formatDate(p.data.date)}{p.data.draft && ' · DRAFT'}</div>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.summary}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</Base>
+
+<style>
+  .hero h1 { max-width: 20ch; font-size: clamp(2rem, 5vw, 3.25rem); }
+</style>

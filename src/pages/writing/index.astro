@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate } from '../../lib';
+
+const posts = await getPosts();
+---
+
+<Base title="Writing" description="Essays on cloud architecture, platform engineering, and agentic systems.">
+  <p class="eyebrow">Essays</p>
+  <h1>Writing</h1>
+  <p class="lede">Notes on cloud architecture, platform engineering, and running AI agents in production.</p>
+  {
+    posts.length === 0 ? (
+      <p style="margin-top:2.5rem">First essays are on the way. Subscribe via <a href="/rss.xml">RSS</a>.</p>
+    ) : (
+      <ul class="list" style="margin-top:2.5rem">
+        {posts.map((p) => (
+          <li>
+            <a href={`/writing/${p.id}/`}>
+              <div class="meta">{formatDate(p.data.date)}{p.data.draft && ' · DRAFT'}</div>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.summary}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getWork } from '../../lib';
+
+const work = await getWork();
+---
+
+<Base title="Work" description="Architecture case studies from Oracle Cloud Infrastructure, Workday, and Cisco.">
+  <p class="eyebrow">Case studies</p>
+  <h1>Work</h1>
+  <p class="lede">Systems I've architected, the problems behind them, and what changed as a result.</p>
+  <ul class="list" style="margin-top:2.5rem">
+    {
+      work.map((w) => (
+        <li>
+          <a href={`/work/${w.id}/`}>
+            <div class="meta">{w.data.org} · {w.data.period}</div>
+            <h3>{w.data.title}</h3>
+            <p>{w.data.summary}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

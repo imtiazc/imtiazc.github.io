@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+
+const talks = [
+  {
+    title: 'Keynote, OpenStack Summit 2020',
+    host: 'Open Infrastructure Foundation',
+    url: 'https://www.youtube.com/watch?v=un-41zo51h8',
+  },
+  {
+    title: 'Scaling Workday’s Private Cloud',
+    host: 'OpenStack Summit Berlin 2018',
+    url: 'https://www.youtube.com/watch?v=hx_MdGI7fcc',
+  },
+];
+---
+
+<Base title="Speaking & Advisory" description="Conference talks, plus technical diligence and architecture advisory for investors and portfolio companies.">
+  <p class="eyebrow">Speaking & Advisory</p>
+  <h1>Speaking & Advisory</h1>
+
+  <div class="section-head"><h2>Talks</h2></div>
+  <ul class="list">
+    {
+      talks.map((t) => (
+        <li>
+          <a href={t.url}>
+            <div class="meta">{t.host}</div>
+            <h3>{t.title} ↗</h3>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="section-head"><h2>Technical diligence & advisory</h2></div>
+  <div class="prose">
+    <p>
+      I review AI infrastructure and cloud companies for investors, as an operator rather than an observer. I've shipped
+      agentic AI into a live operational path, instrumented it, and been accountable for what it did at 3 a.m.
+    </p>
+
+    <h3>Questions a demo can’t answer</h3>
+    <ul>
+      <li><strong>Is the moat real?</strong> Which parts of the stack are proprietary, which are a thin layer over commodity models or managed services, and what survives the next platform shift.</li>
+      <li><strong>Does it scale, and what does it cost?</strong> Where the control plane, the data plane, or the inference bill breaks, and whether unit economics improve with volume.</li>
+      <li><strong>Is the engineering org as strong as the product?</strong> Reliability, deployment velocity, how rigorously they test and evaluate, and whether the architecture fits the team they can actually hire.</li>
+      <li><strong>What’s the 18-month technical risk?</strong> The rewrites, migrations, and scaling walls that turn into a missed roadmap.</li>
+    </ul>
+
+    <h3>How I work with funds</h3>
+    <ul>
+      <li><strong>Per-deal technical diligence:</strong> a written memo plus a readout at the partner meeting, usually within one to two weeks.</li>
+      <li><strong>Expert calls:</strong> a focused hour on one technical thesis or claim.</li>
+      <li><strong>Portfolio architecture reviews:</strong> an ongoing technical resource after the investment.</li>
+      <li><strong>Technical advisor:</strong> working hands-on with a portfolio company as it scales.</li>
+    </ul>
+    <p><em>All work is under NDA. I turn down engagements that conflict with my employer's interests.</em></p>
+    <p><a href={`mailto:${SITE.email}?subject=Advisory%20inquiry`}>Get in touch →</a></p>
+  </div>
+</Base>
